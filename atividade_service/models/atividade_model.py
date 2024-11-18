@@ -30,3 +30,32 @@ def obter_atividade(id_atividade):
         if atividade['id_atividade'] == id_atividade:
             return atividade
     raise AtividadeNotFound
+
+def criar_atividade(id_disciplina, enunciado, respostas):
+    nova_atividade = {
+        'id_atividade': len(atividades) + 1,
+        'id_disciplina': id_disciplina,
+        'enunciado': enunciado,
+        'respostas': respostas
+    }
+    atividades.append(nova_atividade)
+    return nova_atividade
+
+def atualizar_atividade(id_atividade, id_disciplina, enunciado, respostas):
+    for atividade in atividades:
+        if atividade['id_atividade'] == id_atividade:
+            atividade.update({
+                'id_disciplina': id_disciplina,
+                'enunciado': enunciado,
+                'respostas': respostas
+            })
+            return atividade
+    raise AtividadeNotFound
+
+def excluir_atividade(id_atividade):
+    global atividades
+    for atividade in atividades:
+        if atividade['id_atividade'] == id_atividade:
+            atividades = [a for a in atividades if a['id_atividade'] != id_atividade]
+            return
+    raise AtividadeNotFound
